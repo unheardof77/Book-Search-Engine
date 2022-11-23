@@ -38,9 +38,6 @@ const resolvers = {
             return updatedUser;
         },
         deleteBook: async (parent, {bookId}, context) =>{
-            if(!context.user){
-                throw new AuthenticationError('Must be logged in');
-            };
             const updatedUser = await User.findOneAndUpdate({_id:context.user._id}, {$pull: {savedBooks: {bookId: bookId}}}, {new: true});
             return updatedUser;
         }
